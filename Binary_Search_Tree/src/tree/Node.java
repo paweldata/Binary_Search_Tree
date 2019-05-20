@@ -13,16 +13,20 @@ public class Node<T extends Comparable<T>> {
         return this.value;
     }
 
+    public void setValue(T value) {
+        this.value = value;
+    }
+
     public void setLeftNode(Node<T> node) {
         this.left = node;
     }
 
-    public void setRightNode(Node<T> node) {
-        this.right = node;
-    }
-
     public Node<T> getLeftNode() {
         return this.left;
+    }
+
+    public void setRightNode(Node<T> node) {
+        this.right = node;
     }
 
     public Node<T> getRightNode() {

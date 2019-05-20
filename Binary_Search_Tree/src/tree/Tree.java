@@ -4,23 +4,48 @@ public class Tree<T extends Comparable<T>> {
     private Node<T> root;
 
     public T search(T value) throws Exception {
-        return search(value, this.root);
+        return search(value, this.root).getValue();
     }
 
     public void insert(T value) {
         insert(value, this.root);
     }
 
-    public void delete(T value) {
-        delete(value, this.root);
+    public boolean delete(T value) {
+        Node<T> Node;
+
+        try {
+            Node = search(value, this.root);
+        } catch (Exception ex) {
+            return false;
+        }
+
+        if (Node.getLeftNode() == null && Node.getRightNode() == null) {
+            Node = null;
+            return true;
+        }
+
+        if (Node.getLeftNode() == null && Node.getRightNode() != null) {
+            Node = Node.getRightNode();
+            return true;
+        }
+
+        if (Node.getLeftNode() != null && Node.getRightNode() == null) {
+            Node = Node.getLeftNode();
+            return true;
+        }
+
+        Node.setValue(findMinNode(Node));
+        return true;
+        
     }
 
-    private T search(T value, Node<T> Node) throws Exception {
+    private Node<T> search(T value, Node<T> Node) throws Exception {
         if (Node == null)
             throw new NullPointerException();
         
         if (Node.getValue().equals(value))
-            return value;
+            return Node;
         
         if (Node.getValue().compareTo(value) > 0)
             return search(value, Node.getLeftNode());
@@ -44,12 +69,12 @@ public class Tree<T extends Comparable<T>> {
         }
     }
 
-    /*private void delete(T value , Node<T> currNode) {
-        if (currNode == null)
-            return;
+    private T findMinNode(Node<T> currNode) {
+        if (currNode.getLeftNode() != null)
+            return findMinNode(currNode);
         
-        if (currNode.getLeftNode() == null && currNode.getRightNode() == null) {
-
-        }
-    }*/
+        T tempValue = currNode.getValue();
+        currNode = currNode.getRightNode();
+        return tempValue;
+    }
 }
