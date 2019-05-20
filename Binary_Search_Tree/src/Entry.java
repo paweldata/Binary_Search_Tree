@@ -6,9 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import connect.SocketClient;
-import connect.SocketServer;
-
 public class Entry extends JFrame implements ActionListener {
     private JButton integerButton;
     private JButton doubleButton;
@@ -41,22 +38,17 @@ public class Entry extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //SocketServer server;
+        String type = "";
 
-        //new SocketClient();
-
-        /*if (e.getSource().equals(integerButton)) {
-            server = new SocketServer();
-            server.listenSocket();
+        if (e.getSource().equals(integerButton)) {
+            type = "integer";
         } else if (e.getSource().equals(doubleButton)) {
-            server = new SocketServer();
-            server.listenSocket();
+            type = "double";
         } else if (e.getSource().equals(stringButton)) {
-            server = new SocketServer();
-            server.listenSocket();
-        }*/
+            type = "string";
+        }
 
-        new mainFrame();
+        new mainFrame(type);
 
         this.dispose();
     }

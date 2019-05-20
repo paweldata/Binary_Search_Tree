@@ -23,7 +23,7 @@ public class mainFrame extends JFrame implements ActionListener {
     private JButton drawButton;
     private JTextField text;
 
-    public mainFrame() {
+    public mainFrame(String type) {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -31,11 +31,24 @@ public class mainFrame extends JFrame implements ActionListener {
         this.addOptions();
 
         this.setVisible(true);
+
+        Server = new SocketServer();
+        Client = new SocketClient();
+
+        Server.listenSocket();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(searchButton)) {
 
+        } else if (e.getSource().equals(insertButton)) {
+
+        } else if (e.getSource().equals(deleteButton)) {
+
+        } else if (e.getSource().equals(drawButton)) {
+
+        }
     }
 
     private void addTitle() {

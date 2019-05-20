@@ -19,9 +19,7 @@ public class SocketServer {
 
     public void listenSocket() {
         try {
-            System.out.println("1");
             Client = Server.accept();
-            System.out.println("1");
         } catch (IOException ex) {
             System.out.println(ex);
             System.exit(-1);
