@@ -1,8 +1,6 @@
 package connect;
 
-import javax.swing.JFrame;
-
-public class SocketClient extends JFrame {
+public class SocketClient {
 
     public SocketClient() {
         
