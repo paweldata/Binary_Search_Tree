@@ -41,11 +41,11 @@ public class Entry extends JFrame implements ActionListener {
         String type = "";
 
         if (e.getSource().equals(integerButton)) {
-            type = "integer";
+            type = "Integer";
         } else if (e.getSource().equals(doubleButton)) {
-            type = "double";
+            type = "Double";
         } else if (e.getSource().equals(stringButton)) {
-            type = "string";
+            type = "String";
         }
 
         new mainFrame(type);

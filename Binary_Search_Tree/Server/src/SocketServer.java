@@ -22,6 +22,7 @@ public class SocketServer {
         }
 
         Service = new Service();
+		this.listenSocket();
     }
 
     public void listenSocket() {
@@ -36,9 +37,13 @@ public class SocketServer {
             in = new ObjectInputStream(Client.getInputStream());
             out = new ObjectOutputStream(Client.getOutputStream());
 
-            Container output = Service.analize(in);
-            out.writeObject(output);
-            out.flush();
+            while(true) {
+                Container output = Service.analize(in);
+                if (output != null) {
+                    out.writeObject(output);
+                    out.flush();
+                }
+            }
 
         } catch(IOException ex) {
             ex.printStackTrace();

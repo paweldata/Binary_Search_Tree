@@ -1,6 +1,8 @@
+import java.awt.Container;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -14,8 +16,25 @@ public class SocketClient {
         listenSocket();
     }
 
-    public void sendQuery(String info, int value) {
+    public Container sendQuery(ArrayList<String> query) {
+        Container answer;
 
+        try {
+            out.writeObject(query);
+            out.flush();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            answer = (Container)in.readObject(); 
+            System.out.println(answer);
+            return answer;
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
     private void listenSocket() {
@@ -28,12 +47,8 @@ public class SocketClient {
             System.exit(-1);
         }
     }
+}
 
-    private ArrayList<String> createArrayList(String info, int value) {
-        ArrayList<String> infoList = new ArrayList<>();
-
-        infoList.add(info);
-
-        return infoList;
-    }
+class test implements Serializable {
+    
 }
