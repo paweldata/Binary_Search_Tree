@@ -35,7 +35,7 @@ public class mainFrame extends JFrame implements ActionListener {
         Server = new SocketServer();
         Client = new SocketClient();
 
-        Server.listenSocket();
+        //Server.listenSocket();
     }
 
     @Override
