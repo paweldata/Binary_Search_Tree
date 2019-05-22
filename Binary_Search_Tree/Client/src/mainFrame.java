@@ -10,12 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import connect.SocketClient;
-import connect.SocketServer;
-
 public class mainFrame extends JFrame implements ActionListener {
     private SocketClient Client;
-    private SocketServer Server;
 
     private JButton searchButton;
     private JButton insertButton;
@@ -32,10 +28,7 @@ public class mainFrame extends JFrame implements ActionListener {
 
         this.setVisible(true);
 
-        Server = new SocketServer();
         Client = new SocketClient();
-
-        //Server.listenSocket();
     }
 
     @Override
