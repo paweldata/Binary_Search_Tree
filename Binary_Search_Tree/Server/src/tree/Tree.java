@@ -1,20 +1,14 @@
 package tree;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Tree<T extends Comparable<T>> {
     private Node<T> root;
-
-    public Node<T> getRoot() {
-        return this.root;
-    }
 
     public T search(T value) throws Exception {
         return search(value, this.root).getValue();
@@ -53,7 +47,7 @@ public class Tree<T extends Comparable<T>> {
         
     }
 
-    public void Draw(JFrame Frame) {
+    public Container Draw() {
         Container DrawnTree = new Container();
         DrawnTree.setLayout(new GridLayout(12,1));
 
@@ -99,7 +93,7 @@ public class Tree<T extends Comparable<T>> {
             nodesInNextLine = 0;
         }
 
-        Frame.add(DrawnTree, BorderLayout.CENTER);
+        return DrawnTree;
     }
 
     private Node<T> search(T value, Node<T> Node) throws Exception {
