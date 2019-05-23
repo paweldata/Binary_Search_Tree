@@ -39,10 +39,10 @@ public class SocketServer {
 
             while(true) {
                 Container output = Service.analize(in);
-                if (output != null) {
+                //if (output != null) {
                     out.writeObject(output);
                     out.flush();
-                }
+               // }
             }
 
         } catch(IOException ex) {

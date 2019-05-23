@@ -15,7 +15,11 @@ public class Tree<T extends Comparable<T>> {
     }
 
     public void insert(T value) {
-        insert(value, this.root);
+        if (this.root == null) {
+            this.root = new Node<T>(value);
+        } else {
+            insert(value, this.root);
+        }
     }
 
     public boolean delete(T value) {
@@ -50,8 +54,13 @@ public class Tree<T extends Comparable<T>> {
     public Container Draw() {
         Container DrawnTree = new Container();
         DrawnTree.setLayout(new GridLayout(12,1));
+        Node<T> Sentinel = new Node<T>();
 
         Queue<Node<T>> Queue = new LinkedList<>();
+
+        if (this.root == null)
+            return null;
+
         Queue.add(this.root);
 
         int nodesInLine = 1;
@@ -109,19 +118,22 @@ public class Tree<T extends Comparable<T>> {
     }
 
     private void insert(T value, Node<T> currNode) {
-        if (currNode == null) {
-            currNode = new Node<T>(value);
-            return;
-        }
-
         if (currNode.getValue().compareTo(value) > 0) {
-            insert(value, currNode.getLeftNode());
-            return;
-        }
 
-        if (currNode.getValue().compareTo(value) < 0) {
-            insert(value, currNode.getRightNode());
-            return;
+            if (currNode.getLeftNode() == null) {
+                currNode.setLeftNode(new Node<T>(value));
+            } else {
+                insert(value, currNode.getLeftNode());
+            }
+
+        } else {
+
+            if (currNode.getRightNode() == null) {
+                currNode.setRightNode(new Node<T>(value));
+            } else {
+                insert(value, currNode.getRightNode());
+            }
+
         }
     }
 

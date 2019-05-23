@@ -18,7 +18,7 @@ public class Service {
 
             if (info.get(0).equals("Integer")) {
 
-                System.out.println("Tu jestem");
+                System.out.println("Tu byłem");
                 Tree = new Tree<Integer>();
                 return null;
 
@@ -64,7 +64,7 @@ public class Service {
 
             }
 
-            System.out.println(outputComponent.getComponentCount());
+            //System.out.println(outputComponent.getComponentCount());
             return outputComponent;
 
         } catch(Exception ex) {
