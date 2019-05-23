@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Tree<T extends Comparable<T>> {
@@ -75,11 +74,11 @@ public class Tree<T extends Comparable<T>> {
                 Node<T> currNode = Queue.poll();
 
                 if (currNode == Sentinel) {
-                    Line.add(new JButton());
+                    Line.add(new JLabel());
                     Queue.add(Sentinel);
                     Queue.add(Sentinel);
                 } else {
-                    Line.add(new JButton(currNode.getValue() + ""));
+                    Line.add(new JLabel(currNode.getValue() + "", JLabel.CENTER));
 
                     if (currNode.getLeftNode() != null) {
                         Queue.add(currNode.getLeftNode());

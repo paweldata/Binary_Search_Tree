@@ -8,6 +8,8 @@ import tree.Tree;
 
 public class Service {
     private Tree Tree;
+    private String option;
+    private String type;
 
     public Container analize(ObjectInputStream in) {
 
@@ -16,26 +18,41 @@ public class Service {
             System.out.println(info);
             Container outputComponent = new Container();
 
-            if (info.get(0).equals("Integer")) {
+            option = info.get(0);
 
-                System.out.println("Tu byłem");
+            if (Tree == null)
+                type = info.get(0);
+
+            if (option.equals("Integer")) {
+
                 Tree = new Tree<Integer>();
+
                 return null;
 
-            } else if (info.get(0).equals("Double")) {
+            } else if (option.equals("Double")) {
 
                 Tree = new Tree<Double>();
                 return null;
 
-            } else if (info.get(0).equals("String")) {
+            } else if (option.equals("String")) {
 
                 Tree = new Tree<String>();
                 return null;
 
-            } else if (info.get(0).equals("Search")) {
+            } else if (option.equals("Search")) {
 
                 try {
-                    Tree.search(info.get(1));
+
+                    if (type.equals("Integer")) {
+                        Tree.search(Integer.parseInt(info.get(1)));
+                    } else if (type.equals("Double")) {
+                        Tree.search(Double.parseDouble(info.get(1)));
+                    } else if (type.equals("String")) {
+                        Tree.search(info.get(1));
+                    } else {
+                        return null;
+                    }
+
                     JLabel note  = new JLabel(info.get(1) + " exist");
                     outputComponent.add(note);
                 } catch (Exception ex) {
@@ -43,12 +60,21 @@ public class Service {
                     outputComponent.add(note);
                 }
 
-            } else if (info.get(0).equals("Insert")) {
+            } else if (option.equals("Insert")) {
 
-                Tree.insert(info.get(1));
+                if (type.equals("Integer")) {
+                    Tree.insert(Integer.parseInt(info.get(1)));
+                } else if (type.equals("Double")) {
+                    Tree.insert(Double.parseDouble(info.get(1)));
+                } else if (type.equals("String")) {
+                    Tree.insert(info.get(1));
+                } else {
+                    return null;
+                }
+
                 outputComponent = Tree.Draw();
 
-            } else if (info.get(0).equals("Delete")) {
+            } else if (option.equals("Delete")) {
 
                 if (Tree.delete(info.get(1))) {
                     outputComponent = Tree.Draw();
@@ -58,7 +84,7 @@ public class Service {
                     outputComponent.add(note);
                 }
 
-            } else if (info.get(0).equals("Draw")) {
+            } else if (option.equals("Draw")) {
 
                 outputComponent = Tree.Draw();
 
