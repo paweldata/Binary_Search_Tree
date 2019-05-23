@@ -64,7 +64,7 @@ public class Service {
 
             }
 
-            //System.out.println(outputComponent.getComponentCount());
+            System.out.println(outputComponent);
             return outputComponent;
 
         } catch(Exception ex) {

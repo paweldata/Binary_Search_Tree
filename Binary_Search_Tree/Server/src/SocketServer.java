@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JButton;
+
 public class SocketServer {
     private ServerSocket Server;
     private Socket Client;
@@ -37,12 +39,10 @@ public class SocketServer {
             in = new ObjectInputStream(Client.getInputStream());
             out = new ObjectOutputStream(Client.getOutputStream());
 
-            while(true) {
+            while(in != null) {
                 Container output = Service.analize(in);
-                //if (output != null) {
-                    out.writeObject(output);
-                    out.flush();
-               // }
+                out.writeObject(output);
+                out.flush();
             }
 
         } catch(IOException ex) {

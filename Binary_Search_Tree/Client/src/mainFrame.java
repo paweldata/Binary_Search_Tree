@@ -60,6 +60,7 @@ public class mainFrame extends JFrame implements ActionListener {
 
         Container tree = Client.sendQuery(query);
         this.add(tree, BorderLayout.CENTER);
+        this.validate();
     }
 
     private void setType(String type) {

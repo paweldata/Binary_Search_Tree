@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Tree<T extends Comparable<T>> {
@@ -73,25 +74,25 @@ public class Tree<T extends Comparable<T>> {
             for (int i = 0; i < nodesInLine; i++) {
                 Node<T> currNode = Queue.poll();
 
-                if (currNode.getValue() == null) {
-                    Line.add(new JLabel());
-                    Queue.add(new Node<T>());
-                    Queue.add(new Node<T>());
+                if (currNode == Sentinel) {
+                    Line.add(new JButton());
+                    Queue.add(Sentinel);
+                    Queue.add(Sentinel);
                 } else {
-                    Line.add(new JLabel(currNode.getValue() + ""));
+                    Line.add(new JButton(currNode.getValue() + ""));
 
                     if (currNode.getLeftNode() != null) {
                         Queue.add(currNode.getLeftNode());
                         nodesInNextLine++;
                     } else {
-                        Queue.add(new Node<T>());
+                        Queue.add(Sentinel);
                     }
 
                     if (currNode.getRightNode() != null) {
                         Queue.add(currNode.getRightNode());
                         nodesInNextLine++;
                     } else {
-                        Queue.add(new Node<T>());
+                        Queue.add(Sentinel);
                     }
                 }
             }
@@ -126,7 +127,7 @@ public class Tree<T extends Comparable<T>> {
                 insert(value, currNode.getLeftNode());
             }
 
-        } else {
+        } else if (currNode.getValue().compareTo(value) < 0) {
 
             if (currNode.getRightNode() == null) {
                 currNode.setRightNode(new Node<T>(value));
@@ -144,5 +145,18 @@ public class Tree<T extends Comparable<T>> {
         T tempValue = currNode.getValue();
         currNode = currNode.getRightNode();
         return tempValue;
+    }
+
+    public void aaaaa() {
+        bbbbb(this.root);
+    }
+
+    private void bbbbb(Node<T> currNode) {
+        if (currNode == null)
+            return;
+
+        bbbbb(currNode.getLeftNode());
+        System.out.println(currNode.getValue());
+        bbbbb(currNode.getRightNode());
     }
 }
