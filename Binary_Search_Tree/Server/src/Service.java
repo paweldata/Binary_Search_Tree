@@ -68,6 +68,7 @@ public class Service {
             } else if (this.option.equals("Insert")) {
 
                 try {
+
                     if (this.type.equals("Integer")) {
                         this.Tree.insert(Integer.parseInt(info.get(1)));
                     } else if (this.type.equals("Double")) {
@@ -83,37 +84,47 @@ public class Service {
                 } catch (NumberFormatException ex) {
 
                     JLabel note  = new JLabel(info.get(1) + "  : wrong element");
-                    outputComponent.setLayout(new GridLayout(12, 1));
+                    outputComponent = this.Tree.Draw();
                     outputComponent.add(note);
 
                 }
 
             } else if (this.option.equals("Delete")) {
 
-                if (this.type.equals("Integer")) {
-                    if (this.Tree.delete(Integer.parseInt(info.get(1)))) {
-                        outputComponent = this.Tree.Draw();
-                    } else {
-                        JLabel note  = new JLabel(info.get(1) + "not exist");
-                        outputComponent = this.Tree.Draw();
-                        outputComponent.add(note);
+                try {
+
+                    if (this.type.equals("Integer")) {
+                        if (this.Tree.delete(Integer.parseInt(info.get(1)))) {
+                            outputComponent = this.Tree.Draw();
+                        } else {
+                            JLabel note  = new JLabel(info.get(1) + "not exist");
+                            outputComponent = this.Tree.Draw();
+                            outputComponent.add(note);
+                        }
+                    } else if (this.type.equals("Double")) {
+                        if (this.Tree.delete(Double.parseDouble(info.get(1)))) {
+                            outputComponent = this.Tree.Draw();
+                        } else {
+                            JLabel note  = new JLabel(info.get(1) + "not exist");
+                            outputComponent = this.Tree.Draw();
+                            outputComponent.add(note);
+                        }
+                    } else if (this.type.equals("String")) {
+                        if (this.Tree.delete(info.get(1))) {
+                            outputComponent = this.Tree.Draw();
+                        } else {
+                            JLabel note  = new JLabel(info.get(1) + "not exist");
+                            outputComponent = this.Tree.Draw();
+                            outputComponent.add(note);
+                        }
                     }
-                } else if (this.type.equals("Double")) {
-                    if (this.Tree.delete(Double.parseDouble(info.get(1)))) {
-                        outputComponent = this.Tree.Draw();
-                    } else {
-                        JLabel note  = new JLabel(info.get(1) + "not exist");
-                        outputComponent = this.Tree.Draw();
-                        outputComponent.add(note);
-                    }
-                } else if (this.type.equals("String")) {
-                    if (this.Tree.delete(info.get(1))) {
-                        outputComponent = this.Tree.Draw();
-                    } else {
-                        JLabel note  = new JLabel(info.get(1) + "not exist");
-                        outputComponent = this.Tree.Draw();
-                        outputComponent.add(note);
-                    }
+
+                } catch (Exception ex) {
+
+                    JLabel note  = new JLabel(info.get(1) + "  : wrong element");
+                    outputComponent = this.Tree.Draw();
+                    outputComponent.add(note);
+                    
                 }
 
             } else if (this.option.equals("Draw")) {
@@ -124,9 +135,7 @@ public class Service {
 
             return outputComponent;
 
-        } catch(Exception ex) {
-            System.exit(-1);
-        }
+        } catch(Exception ex) {}
 
         return null;
     }

@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 public class Tree<T extends Comparable<T>> {
     private Node<T> root;
 
-    public T search(T value) throws Exception {
-        return search(value, this.root).getValue();
+    public Node<T> search(T value) throws Exception {
+        return search(value, this.root);
     }
 
     public void insert(T value) {
@@ -23,37 +23,67 @@ public class Tree<T extends Comparable<T>> {
     }
 
     public boolean delete(T value) {
-        /*if (this.root.getValue() == value) {
+        Node<T> parent;
+        Node<T> Node;
+
+        if (this.root.getValue().equals(value)) {
             
             if (this.root.getLeftNode() == null && this.root.getRightNode() == null) {
-
                 this.root = null;
-
-            } else if (this.root.getLeftNode() == null && this.root.getRightNode() != null) {
-
+            } else if (this.root.getLeftNode() == null) {
                 this.root = this.root.getRightNode();
-
-            } else if (this.root.getLeftNode() != null && this.root.getRightNode() == null) {
-
+            } else if (this.root.getRightNode() == null) {
                 this.root = this.root.getLeftNode();
-
             } else {
-
-                this.root.setValue(findMaxNode(this.root.getLeftNode()));    
-
+                T maxValue = findMaxValue(this.root.getLeftNode());
+                delete(maxValue);
+                this.root.setValue(maxValue);
             }
 
             return true;
+        } else {
+            try {
+                System.out.println("Tu byłem");
+                parent = getParent(this.root, value);
+                System.out.println("Ojciec jest");
+                Node = search(value);
+                System.out.println("Node też");
+            } catch (Exception ex) {
+                return false;
+            }
         }
 
-        Node<T> parent;
+        if (Node.getLeftNode() == null && Node.getRightNode() == null) {
 
-        try {
-            parent = getParent(this.root, value);
-        } catch (Exception ex) {
-            return false;
-        }*/
+            if (parent.getLeftNode()  == Node) {
+                parent.setLeftNode(null);
+            } else {
+                parent.setRightNode(null);
+            }
 
+        } else if (Node.getLeftNode() == null) {
+
+            if (parent.getLeftNode()  == Node) {
+                parent.setLeftNode(Node.getRightNode());
+            } else {
+                parent.setRightNode(Node.getRightNode());
+            }
+
+        } else if (Node.getRightNode() == null) {
+
+            if (parent.getLeftNode()  == Node) {
+                parent.setLeftNode(Node.getLeftNode());
+            } else {
+                parent.setRightNode(Node.getLeftNode());
+            }
+
+        } else {
+
+            T maxValue = findMaxValue(Node.getLeftNode());
+            delete(maxValue);
+            Node.setValue(maxValue);
+
+        }
 
         return true;
     }
@@ -66,7 +96,7 @@ public class Tree<T extends Comparable<T>> {
         Queue<Node<T>> Queue = new LinkedList<>();
 
         if (this.root == null)
-            return null;
+            return DrawnTree;
 
         Queue.add(this.root);
 
@@ -148,10 +178,14 @@ public class Tree<T extends Comparable<T>> {
         if (currNode == null)
             throw new Exception();
 
-        if (currNode.getLeftNode() != null && currNode.getLeftNode().getValue() == value)
-            return currNode;
+        System.out.println("Tu jestem");
 
-        if (currNode.getRightNode() != null && currNode.getRightNode().getValue() == value)
+        if (currNode.getLeftNode() != null && currNode.getLeftNode().getValue().equals(value))
+            return currNode;
+        
+        System.out.println("Teraz jestem tu");
+
+        if (currNode.getRightNode() != null && currNode.getRightNode().getValue().equals(value))
             return currNode;
 
         if (currNode.getValue().compareTo(value) < 0)
@@ -160,13 +194,11 @@ public class Tree<T extends Comparable<T>> {
         
     }
 
-    private T findMaxNode(Node<T> currNode) {
-        if (currNode.getRightNode().getRightNode() != null) {
-            return findMaxNode(currNode.getRightNode());
+    private T findMaxValue(Node<T> Node) {
+        while (Node.getRightNode() != null) {
+            Node = Node.getRightNode();
         }
-        
-        T tempValue = currNode.getRightNode().getValue();
-        currNode.setRightNode(currNode.getRightNode().getLeftNode());
-        return tempValue;
+
+        return Node.getValue();
     }
 }
