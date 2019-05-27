@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
@@ -15,86 +16,116 @@ public class Service {
 
         try {
             ArrayList<String> info =  (ArrayList<String>)in.readObject();
-            System.out.println(info);
             Container outputComponent = new Container();
 
-            option = info.get(0);
+            this.option = info.get(0);
 
-            if (Tree == null)
-                type = info.get(0);
+            if (this.Tree == null)
+                this.type = info.get(0);
 
-            if (option.equals("Integer")) {
+            if (this.option.equals("Integer")) {
 
-                Tree = new Tree<Integer>();
+                this.Tree = new Tree<Integer>();
 
                 return null;
 
-            } else if (option.equals("Double")) {
+            } else if (this.option.equals("Double")) {
 
-                Tree = new Tree<Double>();
+                this.Tree = new Tree<Double>();
                 return null;
 
-            } else if (option.equals("String")) {
+            } else if (this.option.equals("String")) {
 
-                Tree = new Tree<String>();
+                this.Tree = new Tree<String>();
                 return null;
 
-            } else if (option.equals("Search")) {
+            } else if (this.option.equals("Search")) {
 
                 try {
 
-                    if (type.equals("Integer")) {
-                        Tree.search(Integer.parseInt(info.get(1)));
-                    } else if (type.equals("Double")) {
-                        Tree.search(Double.parseDouble(info.get(1)));
-                    } else if (type.equals("String")) {
-                        Tree.search(info.get(1));
+                    if (this.type.equals("Integer")) {
+                        this.Tree.search(Integer.parseInt(info.get(1)));
+                    } else if (this.type.equals("Double")) {
+                        this.Tree.search(Double.parseDouble(info.get(1)));
+                    } else if (this.type.equals("String")) {
+                        this.Tree.search(info.get(1));
                     } else {
                         return null;
                     }
 
                     JLabel note  = new JLabel(info.get(1) + " exist");
+                    outputComponent.setLayout(new GridLayout(12, 1));
                     outputComponent.add(note);
+
                 } catch (Exception ex) {
+
                     JLabel note  = new JLabel(info.get(1) + " not exist");
+                    outputComponent.setLayout(new GridLayout(12, 1));
                     outputComponent.add(note);
+
                 }
 
-            } else if (option.equals("Insert")) {
+            } else if (this.option.equals("Insert")) {
 
-                if (type.equals("Integer")) {
-                    Tree.insert(Integer.parseInt(info.get(1)));
-                } else if (type.equals("Double")) {
-                    Tree.insert(Double.parseDouble(info.get(1)));
-                } else if (type.equals("String")) {
-                    Tree.insert(info.get(1));
-                } else {
-                    return null;
-                }
+                try {
+                    if (this.type.equals("Integer")) {
+                        this.Tree.insert(Integer.parseInt(info.get(1)));
+                    } else if (this.type.equals("Double")) {
+                        this.Tree.insert(Double.parseDouble(info.get(1)));
+                    } else if (this.type.equals("String")) {
+                        this.Tree.insert(info.get(1));
+                    } else {
+                        return null;
+                    }
 
-                outputComponent = Tree.Draw();
+                    outputComponent = this.Tree.Draw();
+                    
+                } catch (NumberFormatException ex) {
 
-            } else if (option.equals("Delete")) {
-
-                if (Tree.delete(info.get(1))) {
-                    outputComponent = Tree.Draw();
-                } else {
-                    JLabel note  = new JLabel(info.get(1) + "not exist");
-                    outputComponent = Tree.Draw();
+                    JLabel note  = new JLabel(info.get(1) + "  : wrong element");
+                    outputComponent.setLayout(new GridLayout(12, 1));
                     outputComponent.add(note);
+
                 }
 
-            } else if (option.equals("Draw")) {
+            } else if (this.option.equals("Delete")) {
 
-                outputComponent = Tree.Draw();
+                if (this.type.equals("Integer")) {
+                    if (this.Tree.delete(Integer.parseInt(info.get(1)))) {
+                        outputComponent = this.Tree.Draw();
+                    } else {
+                        JLabel note  = new JLabel(info.get(1) + "not exist");
+                        outputComponent = this.Tree.Draw();
+                        outputComponent.add(note);
+                    }
+                } else if (this.type.equals("Double")) {
+                    if (this.Tree.delete(Double.parseDouble(info.get(1)))) {
+                        outputComponent = this.Tree.Draw();
+                    } else {
+                        JLabel note  = new JLabel(info.get(1) + "not exist");
+                        outputComponent = this.Tree.Draw();
+                        outputComponent.add(note);
+                    }
+                } else if (this.type.equals("String")) {
+                    if (this.Tree.delete(info.get(1))) {
+                        outputComponent = this.Tree.Draw();
+                    } else {
+                        JLabel note  = new JLabel(info.get(1) + "not exist");
+                        outputComponent = this.Tree.Draw();
+                        outputComponent.add(note);
+                    }
+                }
+
+            } else if (this.option.equals("Draw")) {
+
+                outputComponent = this.Tree.Draw();
 
             }
 
-            System.out.println(outputComponent);
             return outputComponent;
 
         } catch(Exception ex) {
-            ex.printStackTrace();
+            System.exit(-1);
         }
 
         return null;

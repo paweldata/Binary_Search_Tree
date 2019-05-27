@@ -19,6 +19,8 @@ public class mainFrame extends JFrame implements ActionListener {
     private JButton deleteButton;
     private JButton drawButton;
     private JTextField text;
+    private JLabel info;
+    private Container tree;
 
     public mainFrame(String type) {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -27,39 +29,41 @@ public class mainFrame extends JFrame implements ActionListener {
         this.addTitle();
         this.addOptions();
 
+        this.tree = new Container();
+        this.add(this.tree, BorderLayout.CENTER);
+
         this.setVisible(true);
 
-        Client = new SocketClient();
-        setType(type);
+        this.Client = new SocketClient();
+        this.setType(type);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> query = new ArrayList<>();
-        int number;
-
-        try {
-            number = Integer.parseInt(this.text.getText());
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-            return;
-        }
 
         if (e.getSource().equals(searchButton)) {
             query.add("Search");
-            query.add(number + "");
         } else if (e.getSource().equals(insertButton)) {
             query.add("Insert");
-            query.add(number + "");
         } else if (e.getSource().equals(deleteButton)) {
             query.add("Delete");
-            query.add(number + "");
         } else if (e.getSource().equals(drawButton)) {
             query.add("Draw");
         }
 
-        Container tree = Client.sendQuery(query);
-        this.add(tree, BorderLayout.CENTER);
+        query.add(this.text.getText());
+
+        try {
+            this.remove(tree);
+        } catch (NullPointerException ex) {}
+
+        this.tree = Client.sendQuery(query);
+
+        try {
+            this.add(tree, BorderLayout.CENTER);
+        } catch (NullPointerException ex) {}
+
         this.validate();
     }
 
@@ -67,7 +71,7 @@ public class mainFrame extends JFrame implements ActionListener {
         ArrayList<String> query = new ArrayList<>();
         query.add(type);
 
-        Client.sendQuery(query);
+        this.Client.sendQuery(query);
     }
 
     private void addTitle() {
@@ -80,21 +84,24 @@ public class mainFrame extends JFrame implements ActionListener {
         Container options = new Container();
         options.setLayout(new GridLayout(15,1));
 
-        searchButton = new JButton("search");
-        searchButton.addActionListener(this);
-        options.add(searchButton);
-        insertButton = new JButton("insert");
-        insertButton.addActionListener(this);
-        options.add(insertButton);
-        deleteButton = new JButton("delete");
-        deleteButton.addActionListener(this);
-        options.add(deleteButton);
-        drawButton = new JButton("draw");
-        drawButton.addActionListener(this);
-        options.add(drawButton);
+        this.searchButton = new JButton("search");
+        this.searchButton.addActionListener(this);
+        options.add(this.searchButton);
+        this.insertButton = new JButton("insert");
+        this.insertButton.addActionListener(this);
+        options.add(this.insertButton);
+        this.deleteButton = new JButton("delete");
+        this.deleteButton.addActionListener(this);
+        options.add(this.deleteButton);
+        this.drawButton = new JButton("draw");
+        this.drawButton.addActionListener(this);
+        options.add(this.drawButton);
 
-        text = new JTextField();
-        options.add(text);
+        this.text = new JTextField();
+        options.add(this.text);
+
+        this.info = new JLabel();
+        options.add(this.info);
 
         this.add(options, BorderLayout.EAST);
     }

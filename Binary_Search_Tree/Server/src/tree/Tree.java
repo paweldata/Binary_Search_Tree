@@ -23,32 +23,39 @@ public class Tree<T extends Comparable<T>> {
     }
 
     public boolean delete(T value) {
-        Node<T> Node;
+        /*if (this.root.getValue() == value) {
+            
+            if (this.root.getLeftNode() == null && this.root.getRightNode() == null) {
+
+                this.root = null;
+
+            } else if (this.root.getLeftNode() == null && this.root.getRightNode() != null) {
+
+                this.root = this.root.getRightNode();
+
+            } else if (this.root.getLeftNode() != null && this.root.getRightNode() == null) {
+
+                this.root = this.root.getLeftNode();
+
+            } else {
+
+                this.root.setValue(findMaxNode(this.root.getLeftNode()));    
+
+            }
+
+            return true;
+        }
+
+        Node<T> parent;
 
         try {
-            Node = search(value, this.root);
+            parent = getParent(this.root, value);
         } catch (Exception ex) {
             return false;
-        }
+        }*/
 
-        if (Node.getLeftNode() == null && Node.getRightNode() == null) {
-            Node = null;
-            return true;
-        }
 
-        if (Node.getLeftNode() == null && Node.getRightNode() != null) {
-            Node = Node.getRightNode();
-            return true;
-        }
-
-        if (Node.getLeftNode() != null && Node.getRightNode() == null) {
-            Node = Node.getLeftNode();
-            return true;
-        }
-
-        Node.setValue(findMinNode(Node));
         return true;
-        
     }
 
     public Container Draw() {
@@ -137,25 +144,29 @@ public class Tree<T extends Comparable<T>> {
         }
     }
 
-    private T findMinNode(Node<T> currNode) {
-        if (currNode.getLeftNode() != null)
-            return findMinNode(currNode);
-        
-        T tempValue = currNode.getValue();
-        currNode = currNode.getRightNode();
-        return tempValue;
-    }
-
-    public void aaaaa() {
-        bbbbb(this.root);
-    }
-
-    private void bbbbb(Node<T> currNode) {
+    private Node<T> getParent(Node<T> currNode, T value) throws Exception {
         if (currNode == null)
-            return;
+            throw new Exception();
 
-        bbbbb(currNode.getLeftNode());
-        System.out.println(currNode.getValue());
-        bbbbb(currNode.getRightNode());
+        if (currNode.getLeftNode() != null && currNode.getLeftNode().getValue() == value)
+            return currNode;
+
+        if (currNode.getRightNode() != null && currNode.getRightNode().getValue() == value)
+            return currNode;
+
+        if (currNode.getValue().compareTo(value) < 0)
+            return getParent(currNode.getRightNode(), value);
+        return getParent(currNode.getLeftNode(), value);
+        
+    }
+
+    private T findMaxNode(Node<T> currNode) {
+        if (currNode.getRightNode().getRightNode() != null) {
+            return findMaxNode(currNode.getRightNode());
+        }
+        
+        T tempValue = currNode.getRightNode().getValue();
+        currNode.setRightNode(currNode.getRightNode().getLeftNode());
+        return tempValue;
     }
 }

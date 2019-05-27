@@ -5,8 +5,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import javax.swing.JButton;
-
 public class SocketServer {
     private ServerSocket Server;
     private Socket Client;
@@ -46,7 +44,6 @@ public class SocketServer {
             }
 
         } catch(IOException ex) {
-            ex.printStackTrace();
             System.exit(-1);
         }
     }

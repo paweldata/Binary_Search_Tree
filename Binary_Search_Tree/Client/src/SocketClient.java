@@ -2,7 +2,6 @@ import java.awt.Container;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -28,13 +27,10 @@ public class SocketClient {
 
         try {
             answer = (Container)in.readObject(); 
-            System.out.println(answer);
             return answer;
         } catch(Exception ex) {
-            ex.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
     private void listenSocket() {
@@ -47,8 +43,4 @@ public class SocketClient {
             System.exit(-1);
         }
     }
-}
-
-class test implements Serializable {
-    
 }
