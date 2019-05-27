@@ -7,13 +7,27 @@ import java.util.Queue;
 
 import javax.swing.JLabel;
 
+/**
+ * Tree
+ * @param <T> type of elements
+ */
 public class Tree<T extends Comparable<T>> {
     private Node<T> root;
 
+    /**
+     * Search node with given value.
+     * @param value value
+     * @return node with given value
+     * @throws Exception if node not exist
+     */
     public Node<T> search(T value) throws Exception {
         return search(value, this.root);
     }
 
+    /**
+     * Add new node to tree.
+     * @param value value
+     */
     public void insert(T value) {
         if (this.root == null) {
             this.root = new Node<T>(value);
@@ -22,6 +36,11 @@ public class Tree<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * Delete node with given value
+     * @param value value
+     * @return true if node was delete, false otherwise
+     */
     public boolean delete(T value) {
         Node<T> parent;
         Node<T> Node;
@@ -43,11 +62,8 @@ public class Tree<T extends Comparable<T>> {
             return true;
         } else {
             try {
-                System.out.println("Tu byłem");
                 parent = getParent(this.root, value);
-                System.out.println("Ojciec jest");
                 Node = search(value);
-                System.out.println("Node też");
             } catch (Exception ex) {
                 return false;
             }
@@ -88,6 +104,10 @@ public class Tree<T extends Comparable<T>> {
         return true;
     }
 
+    /**
+     * Draws tree.
+     * @return container with tree
+     */
     public Container Draw() {
         Container DrawnTree = new Container();
         DrawnTree.setLayout(new GridLayout(12,1));
@@ -178,12 +198,8 @@ public class Tree<T extends Comparable<T>> {
         if (currNode == null)
             throw new Exception();
 
-        System.out.println("Tu jestem");
-
         if (currNode.getLeftNode() != null && currNode.getLeftNode().getValue().equals(value))
             return currNode;
-        
-        System.out.println("Teraz jestem tu");
 
         if (currNode.getRightNode() != null && currNode.getRightNode().getValue().equals(value))
             return currNode;

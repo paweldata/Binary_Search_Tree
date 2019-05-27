@@ -7,11 +7,20 @@ import javax.swing.JLabel;
 
 import tree.Tree;
 
+/**
+ * Analize query and send output.
+ * @author Paweł Data
+ */
 public class Service {
     private Tree Tree;
     private String option;
     private String type;
 
+    /**
+     * Analize query.
+     * @param in List with query
+     * @return Container with output
+     */
     public Container analize(ObjectInputStream in) {
 
         try {
@@ -124,7 +133,7 @@ public class Service {
                     JLabel note  = new JLabel(info.get(1) + "  : wrong element");
                     outputComponent = this.Tree.Draw();
                     outputComponent.add(note);
-                    
+
                 }
 
             } else if (this.option.equals("Draw")) {

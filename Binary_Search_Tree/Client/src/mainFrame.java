@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * Main frame.
+ * @author Paweł Data
+ */
 public class mainFrame extends JFrame implements ActionListener {
     private SocketClient Client;
 
@@ -19,9 +23,13 @@ public class mainFrame extends JFrame implements ActionListener {
     private JButton deleteButton;
     private JButton drawButton;
     private JTextField text;
-    private JLabel info;
+
     private Container tree;
 
+    /**
+     * Class constructor.
+     * @param type Type of elements
+     */
     public mainFrame(String type) {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,6 +46,9 @@ public class mainFrame extends JFrame implements ActionListener {
         this.setType(type);
     }
 
+    /**
+     * Runs, when button was clicked.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> query = new ArrayList<>();
@@ -67,6 +78,11 @@ public class mainFrame extends JFrame implements ActionListener {
         this.validate();
     }
 
+    /**
+     * Set type of elements.
+     * Send info to server.
+     * @param type type of elements
+     */
     private void setType(String type) {
         ArrayList<String> query = new ArrayList<>();
         query.add(type);
@@ -74,12 +90,18 @@ public class mainFrame extends JFrame implements ActionListener {
         this.Client.sendQuery(query);
     }
 
+    /**
+     * Add title to frame.
+     */
     private void addTitle() {
         JLabel title = new JLabel("Binary search tree", JLabel.CENTER);
         title.setFont(new Font(Font.SERIF,Font.BOLD,40));
         this.add(title, BorderLayout.NORTH);
     }
 
+    /**
+     * Add options to frame.
+     */
     private void addOptions() {
         Container options = new Container();
         options.setLayout(new GridLayout(15,1));
@@ -99,9 +121,6 @@ public class mainFrame extends JFrame implements ActionListener {
 
         this.text = new JTextField();
         options.add(this.text);
-
-        this.info = new JLabel();
-        options.add(this.info);
 
         this.add(options, BorderLayout.EAST);
     }

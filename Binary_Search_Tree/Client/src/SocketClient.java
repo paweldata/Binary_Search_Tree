@@ -5,16 +5,28 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Connect with server.
+ * @author Paweł Data
+ */
 public class SocketClient {
     private Socket Socket;
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
+    /**
+     * Class constructor.
+     */
     public SocketClient() {
         listenSocket();
     }
 
+    /**
+     * Send query to server.
+     * @param query List with informations
+     * @return Container with informations from server
+     */
     public Container sendQuery(ArrayList<String> query) {
         Container answer;
 
