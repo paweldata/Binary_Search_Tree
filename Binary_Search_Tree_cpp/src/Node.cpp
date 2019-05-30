@@ -22,6 +22,10 @@ public:
         this->right = NULL;
     }
 
+    /**
+     * Get value.
+     * @return T value
+     */
     T getValue() {
         return value;
     }

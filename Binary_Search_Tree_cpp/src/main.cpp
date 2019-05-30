@@ -1,12 +1,17 @@
 #include <iostream>
-//#include<cstdio>
 #include<string>
 #include"Tree.cpp"
 
+/**
+ * Show title of program.
+ */
 void showTitle() {
 	cout <<"Binary search tree\n" << "--------------------\n";
 }
 
+/**
+ * Show options.
+ */
 void showOptions() {
 	cout << "Press:\n"
 		<< "1. Search\n"
@@ -15,6 +20,10 @@ void showOptions() {
 		<< "4. Close program\n";
 }
 
+/**
+ * Show type of tree and read from key a type.
+ * @return int type's number
+ */
 int chooseType() {
 	char key;
 	do {
@@ -30,6 +39,10 @@ int chooseType() {
 	return (int)(key) - 48;
 }
 
+/**
+ * Gets int value.
+ * @return int 
+ */
 int getInt() {
 	string newInt;
 	cout << "Value : ";
@@ -37,6 +50,10 @@ int getInt() {
 	return stoi(newInt);
 }
 
+/**
+ * Gets double value.
+ * @return double 
+ */
 double getDouble() {
 	string newDouble;
 	cout << "Value : ";
@@ -44,6 +61,10 @@ double getDouble() {
 	return stod(newDouble);
 }
 
+/**
+ * Gets string value.
+ * @return string 
+ */
 string getString() {
 	string newString;
 	cout << "Value : ";
