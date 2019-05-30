@@ -18,8 +18,8 @@ public:
      */
     Node(T v) {
         value = v;
-        left = NULL;
-        right = NULL;
+        this->left = NULL;
+        this->right = NULL;
     }
 
     T getValue() {
@@ -46,7 +46,7 @@ public:
      * Get left node.
      * @return left node
      */
-    Node<T> getLeftNode() {
+    Node<T>* getLeftNode() {
         return left;
     }
 
@@ -62,7 +62,8 @@ public:
      * Get right node.
      * @return right node
      */
-    Node<T> getRightNode() {
+    Node<T>* getRightNode() {
         return right;
     }
+
 };
